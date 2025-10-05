@@ -1,6 +1,7 @@
 package app.campassist.enterprise.dto;
 
 import java.util.List;
+
 import lombok.Data;
 
 public @Data
