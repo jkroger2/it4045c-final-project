@@ -16,19 +16,23 @@ public class CampsiteServiceStub implements ICampsiteService {
         return campsite;
     }
 
+    
     @Override
     public List<Campsite> fetchAllCampsites() {
         List<Campsite> campsites = List.of(new Campsite());
         return campsites;
     }
 
+
     @Override
     public void addCampsite(Campsite campsite) {
     }
 
+
     @Override
     public void updateCampsite(Campsite campsite) {
     }
+
 
     @Override
     public void deleteCampsite(String id) {
