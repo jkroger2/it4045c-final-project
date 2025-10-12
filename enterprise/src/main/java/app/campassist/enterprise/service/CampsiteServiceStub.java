@@ -4,35 +4,34 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import app.campassist.enterprise.dto.Campsite;
+import app.campassist.enterprise.dto.CampsiteDTO;
 
 @Component
 public class CampsiteServiceStub implements ICampsiteService {
     @Override
-    public Campsite fetchCampsiteById(String id) {
-        Campsite campsite = new Campsite();
+    public List<CampsiteDTO> fetchAllCampsites() {
+        List<CampsiteDTO> campsites = List.of(new CampsiteDTO());
+        return campsites;
+    }
+
+    @Override
+    public CampsiteDTO fetchCampsiteById(String id) {
+        CampsiteDTO campsite = new CampsiteDTO();
         campsite.setId(id);
+        campsite.setName("Sample Campsite");
 
         return campsite;
     }
 
-    
     @Override
-    public List<Campsite> fetchAllCampsites() {
-        List<Campsite> campsites = List.of(new Campsite());
-        return campsites;
+    public CampsiteDTO addCampsite(CampsiteDTO campsite) {
+        return campsite;
     }
 
-
     @Override
-    public void addCampsite(Campsite campsite) {
+    public CampsiteDTO updateCampsite(CampsiteDTO campsite) {
+        return campsite;
     }
-
-
-    @Override
-    public void updateCampsite(Campsite campsite) {
-    }
-
 
     @Override
     public void deleteCampsite(String id) {

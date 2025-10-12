@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 
 public @Data
-class Campsite {
+class CampsiteDTO {
     private String id;
     private String name;
     private String description;
