@@ -1,6 +1,7 @@
 package app.campassist.enterprise.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -57,7 +58,8 @@ public class CampsiteController {
      */
     @PutMapping(value="/{id}/", consumes="application/json", produces="application/json")
     public ResponseEntity<CampsiteDTO> updateCampsite(@PathVariable String id, @RequestBody CampsiteDTO campsite) {
-        campsite.setId(id);
+        UUID campsiteId = UUID.fromString(id);
+        campsite.setId(campsiteId);
         CampsiteDTO updatedCampsite = campsiteService.updateCampsite(campsite);
         return ResponseEntity.ok(updatedCampsite);
     }

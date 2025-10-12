@@ -1,6 +1,7 @@
 package app.campassist.enterprise.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +57,7 @@ public class CampsiteServiceTest {
     }
 
     private void thenReturnCampsiteWithId(String id) {
-        assert id.equals(campsite.getId());
-        assert id.equals(campsite.getId());
+        assert id.equals(campsite.getId().toString());
     }
 
 
@@ -67,7 +67,7 @@ public class CampsiteServiceTest {
     @Test
     void addCampsite_addsCampsiteWithGivenDetails() {
         CampsiteDTO newCampsite = new CampsiteDTO();
-        newCampsite.setId("00000000-0000-0000-0000-000000000000");
+        newCampsite.setId(UUID.randomUUID());
         newCampsite.setName("New Campsite");
         newCampsite.setDescription("New Description");
 
@@ -80,7 +80,7 @@ public class CampsiteServiceTest {
     }
 
     private void thenCampsiteExistsWithDetails(CampsiteDTO newCampsite) {
-        campsite = campsiteService.fetchCampsiteById(newCampsite.getId());
+        campsite = campsiteService.fetchCampsiteById(newCampsite.getId().toString());
         assert newCampsite.getId().equals(campsite.getId());
     }
 
@@ -91,7 +91,7 @@ public class CampsiteServiceTest {
     @Test
     void updateCampsite_updatesCampsiteWithGivenDetails() {
         CampsiteDTO updatedCampsite = new CampsiteDTO();
-        updatedCampsite.setId("00000000-0000-0000-0000-000000000000");
+        updatedCampsite.setId(UUID.randomUUID());
         updatedCampsite.setName("Updated Campsite");
         updatedCampsite.setDescription("Updated Description");
 
@@ -104,7 +104,7 @@ public class CampsiteServiceTest {
     }
 
     private void thenCampsiteExistsWithNewDetails(CampsiteDTO updatedCampsite) {
-        campsite = campsiteService.fetchCampsiteById(updatedCampsite.getId());
+        campsite = campsiteService.fetchCampsiteById(updatedCampsite.getId().toString());
         assert updatedCampsite.equals(campsite);
     }
 
