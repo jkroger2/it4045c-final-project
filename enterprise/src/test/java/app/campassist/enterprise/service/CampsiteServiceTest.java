@@ -1,7 +1,6 @@
 package app.campassist.enterprise.service;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,31 +13,18 @@ public class CampsiteServiceTest {
 
     @Autowired
     private ICampsiteService campsiteService;
-    private CampsiteDTO campsite;
-    private List<CampsiteDTO> allCampsites;
-    
 
     @Test
     void contextLoads() {
     }
 
-    
     /**
      * Test fetchAllCampsites returns a non-empty list of campsites
      */
     @Test
-    void fetchAllCampsites_returnsListOfCampsites() {
-        
-        whenFetchAllCampsites();
-        thenReturnNonEmptyListOfCampsites();
-    }
-
-    private void whenFetchAllCampsites() {
-        allCampsites = campsiteService.fetchAllCampsites();
-    }
-
-    private void thenReturnNonEmptyListOfCampsites() {
-        assert !allCampsites.isEmpty();
+    void testFetchAllCampsites_returnsListOfCampsites() {
+        List<CampsiteDTO> campsites = campsiteService.fetchAllCampsites();
+        assert !campsites.isEmpty();
     }
 
     /**
@@ -46,18 +32,13 @@ public class CampsiteServiceTest {
      */
     @Test
     void fetchCampsiteById_returnsCampsiteForId() {
-        String id = "00000000-0000-0000-0000-000000000000";
+        CampsiteDTO existingCampsite = campsiteService.fetchAllCampsites().get(0);
+        String id = existingCampsite.getId().toString();
+        String name = existingCampsite.getName();
 
-        whenSearchCampsiteWithId(id);
-        thenReturnCampsiteWithId(id);
-    }
-
-    private void whenSearchCampsiteWithId(String id) {
-        campsite = campsiteService.fetchCampsiteById(id);
-    }
-
-    private void thenReturnCampsiteWithId(String id) {
-        assert id.equals(campsite.getId().toString());
+        CampsiteDTO campsite = campsiteService.fetchCampsiteById(id);
+        assert campsite.getId().toString().equals(id);
+        assert campsite.getName().equals(name);
     }
 
 
@@ -66,46 +47,31 @@ public class CampsiteServiceTest {
      */
     @Test
     void addCampsite_addsCampsiteWithGivenDetails() {
-        CampsiteDTO newCampsite = new CampsiteDTO();
-        newCampsite.setId(UUID.randomUUID());
-        newCampsite.setName("New Campsite");
-        newCampsite.setDescription("New Description");
+        CampsiteDTO dto = new CampsiteDTO();
+        dto.setName("Test Campsite");
 
-        whenAddCampsiteWithDetails(newCampsite);
-        thenCampsiteExistsWithDetails(newCampsite);
+        CampsiteDTO campsite = campsiteService.addCampsite(dto);
+
+        assert campsite.getName().equals(dto.getName());
     }
-
-    private void whenAddCampsiteWithDetails(CampsiteDTO newCampsite) {
-        campsiteService.addCampsite(newCampsite);
-    }
-
-    private void thenCampsiteExistsWithDetails(CampsiteDTO newCampsite) {
-        campsite = campsiteService.fetchCampsiteById(newCampsite.getId().toString());
-        assert newCampsite.getId().equals(campsite.getId());
-    }
-
 
     /**
      * Test updateCampsite updates a campsite with given details
      */
     @Test
     void updateCampsite_updatesCampsiteWithGivenDetails() {
-        CampsiteDTO updatedCampsite = new CampsiteDTO();
-        updatedCampsite.setId(UUID.randomUUID());
-        updatedCampsite.setName("Updated Campsite");
-        updatedCampsite.setDescription("Updated Description");
+        CampsiteDTO dto = campsiteService.fetchAllCampsites().get(0);
+        dto.setName("Updated Campsite");
+        dto.setDescription("Updated Description");
 
-        whenUpdateCampsiteWithDetails(updatedCampsite);
-        thenCampsiteExistsWithNewDetails(updatedCampsite);
-    }
+        String id = dto.getId().toString();
+        String name = dto.getName();
+        String description = dto.getDescription();
+        CampsiteDTO campsite = campsiteService.updateCampsite(dto);
 
-    private void whenUpdateCampsiteWithDetails(CampsiteDTO updatedCampsite) {
-        campsiteService.updateCampsite(updatedCampsite);
-    }
-
-    private void thenCampsiteExistsWithNewDetails(CampsiteDTO updatedCampsite) {
-        campsite = campsiteService.fetchCampsiteById(updatedCampsite.getId().toString());
-        assert updatedCampsite.equals(campsite);
+        assert campsite.getId().toString().equals(id);
+        assert campsite.getName().equals(name);
+        assert campsite.getDescription().equals(description);
     }
 
     /**
@@ -113,18 +79,12 @@ public class CampsiteServiceTest {
      */
     @Test 
     void deleteCampsite_deletesCampsiteForId() {
-        String id = "00000000-0000-0000-0000-000000000000";
+        CampsiteDTO dto = campsiteService.fetchAllCampsites().get(0);
+        String id = dto.getId().toString();
 
-        whenDeleteCampsiteWithId(id);
-        thenCampsiteDoesNotExist(id);
-    }
-
-    private void whenDeleteCampsiteWithId(String id) {
         campsiteService.deleteCampsite(id);
-    }
 
-    private void thenCampsiteDoesNotExist(String id) {
-        campsite = campsiteService.fetchCampsiteById(id);
-        assert campsite == null;
+        assert campsiteService.fetchCampsiteById(id) == null;
+
     }
 }
