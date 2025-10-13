@@ -17,7 +17,7 @@ import app.campassist.enterprise.dto.CampsiteDTO;
 import app.campassist.enterprise.service.ICampsiteService;
 
 @Controller
-@RequestMapping("/api/campsites")
+@RequestMapping("/api/campsites/")
 public class CampsiteController {
 
     private final ICampsiteService campsiteService;
