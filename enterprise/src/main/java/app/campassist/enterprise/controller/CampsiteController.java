@@ -73,4 +73,6 @@ public class CampsiteController {
         return ResponseEntity.ok().build();
     }
     
+    @GetMapping("/{name}/")
+    // Do something
 }
