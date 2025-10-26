@@ -24,18 +24,11 @@ public class CampsiteServiceStub implements ICampsiteService {
                 "Springfield",
                 "IL",
                 "62701",
-                39.7817,
-                89.6501,
-                List.of(
-                    "WiFi",
-                    "Restrooms"
-                ),
-                List.of(
-                    "https://www.pexels.com/photo/foggy-mountain-above-a-campsite-2873086/"
-                ),
-                List.of(
-                    "family-friendly", "pet-friendly"
-                )
+                25.0,
+                50.00,
+                List.of("Hiking", "Fishing", "Campfire"),
+                List.of("hhttps://images.pexels.com/photos/1309587/pexels-photo-1309587.jpeg"),
+                List.of("scenic", "family-friendly")
             )
         );
         campsites.add(
@@ -47,18 +40,11 @@ public class CampsiteServiceStub implements ICampsiteService {
                 "Lakeside",
                 "CA",
                 "92040",
-                33.0369,
-                117.2920,
-                List.of(
-                    "Boat Ramp",
-                    "Fishing Dock"
-                ),
-                List.of(
-                    "https://www.pexels.com/photo/aerial-view-of-green-trees-near-a-campsite-4993949/"
-                ),
-                List.of(
-                    "waterfront", "nature"
-                )
+                30.5,
+                75.00,
+                List.of("Fishing", "Boating", "Hiking"),
+                List.of("https://images.pexels.com/photos/4993949/pexels-photo-4993949.jpeg"),
+                List.of("waterfront", "nature")
             )
         );
     }
@@ -87,8 +73,8 @@ public class CampsiteServiceStub implements ICampsiteService {
             dto.getCity(),
             dto.getState(),
             dto.getZipCode(),
-            dto.getLatitude(),
-            dto.getLongitude(),
+            dto.getMaxRigLength(),
+            dto.getPricePerNight(),
             dto.getAmenities(),
             dto.getImages(),
             dto.getTags()

@@ -18,8 +18,8 @@ class CampsiteDTO {
     private String city;
     private String state;
     private String zipCode;
-    private double latitude;
-    private double longitude;
+    private double maxRigLength;
+    private double pricePerNight;
     private List<String> amenities;
     private List<String> images;
     private List<String> tags;
