@@ -1,6 +1,7 @@
 package app.campassist.enterprise.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,11 +35,11 @@ public class BookingServiceTest {
     void fetchBookingById_returnsBookingForId() {
         BookingDTO existingBooking = bookingService.fetchAllBookings().get(0);
         String id = existingBooking.getId().toString();
-        String firstName = existingBooking.getFirstName();
+        String userId = existingBooking.getUserId().toString();
 
         BookingDTO booking = bookingService.fetchBookingById(id);
         assert booking.getId().toString().equals(id);
-        assert booking.getFirstName().equals(firstName);
+        assert booking.getUserId().toString().equals(userId);
     }
 
     /**
@@ -47,13 +48,12 @@ public class BookingServiceTest {
     @Test
     void addBooking_addsBookingWithGivenDetails() {
         BookingDTO dto = new BookingDTO();
-        dto.setFirstName("Test");
-        dto.setLastName("User");
+        UUID userId = UUID.randomUUID();
+        dto.setUserId(userId);
 
         BookingDTO booking = bookingService.addBooking(dto);
 
-        assert booking.getFirstName().equals(dto.getFirstName());
-        assert booking.getLastName().equals(dto.getLastName());
+        assert booking.getUserId().toString().equals(dto.getUserId().toString());
     }
 
     /**
@@ -62,11 +62,11 @@ public class BookingServiceTest {
     @Test
     void updateBooking_updatesBookingWithGivenDetails() {
         BookingDTO dto = bookingService.fetchAllBookings().get(0);
-        dto.setFirstName("UpdatedName");
+        dto.setEndDate(dto.getEndDate().plusDays(1));
 
         BookingDTO updatedBooking = bookingService.updateBooking(dto);
 
-        assert updatedBooking.getFirstName().equals("UpdatedName");
+        assert updatedBooking.getEndDate().equals(dto.getEndDate().plusDays(1));
     }
 
     /**
