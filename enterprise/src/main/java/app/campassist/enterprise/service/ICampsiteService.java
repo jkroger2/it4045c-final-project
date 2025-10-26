@@ -21,12 +21,14 @@ public interface ICampsiteService {
     /**
      * Add a new campsite.
      * @param campsite The campsite object to add.
+     * @return The added campsite with any generated fields populated.
      */
     CampsiteDTO addCampsite(CampsiteDTO campsite);
 
     /**
      * Update an existing campsite.
      * @param campsite The campsite object with updated information.
+     * @return The updated campsite object.
      */
     CampsiteDTO updateCampsite(CampsiteDTO campsite);
 
