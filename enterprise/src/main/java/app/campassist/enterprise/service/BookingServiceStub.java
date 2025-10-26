@@ -1,5 +1,6 @@
 package app.campassist.enterprise.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,13 +20,10 @@ public class BookingServiceStub implements IBookingService {
             new BookingDTO(
                 UUID.randomUUID(),
                 UUID.randomUUID(),
-                "John",
-                "Doe",
-                "jdoe@gmail.com",
-                "513-000-1111",
+                UUID.randomUUID(),
                 LocalDate.of(2025, 11, 25),
                 LocalDate.of(2025, 11, 28),
-                250.00,
+                new BigDecimal(250.00),
                 "CONFIRMED"
             )
         );
@@ -33,13 +31,10 @@ public class BookingServiceStub implements IBookingService {
             new BookingDTO(
                 UUID.randomUUID(),
                 UUID.randomUUID(),
-                "Jane",
-                "Smith",
-                "jsmith@gmail.com",
-                "513-000-2222",
+                UUID.randomUUID(),
                 LocalDate.of(2025, 12, 5),
                 LocalDate.of(2025, 12, 10),
-                500.00,
+                new BigDecimal(400.00),
                 "CANCELLED"
             )
         );
@@ -63,10 +58,7 @@ public class BookingServiceStub implements IBookingService {
         BookingDTO newBooking = new BookingDTO(
             UUID.randomUUID(),
             dto.getCampsiteId(),
-            dto.getFirstName(),
-            dto.getLastName(),
-            dto.getEmail(),
-            dto.getPhoneNumber(),
+            dto.getUserId(),
             dto.getStartDate(),
             dto.getEndDate(),
             dto.getTotal(),
