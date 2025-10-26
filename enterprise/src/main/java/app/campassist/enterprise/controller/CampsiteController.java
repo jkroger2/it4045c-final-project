@@ -72,7 +72,4 @@ public class CampsiteController {
         campsiteService.deleteCampsite(id);
         return ResponseEntity.ok().build();
     }
-    
-    @GetMapping("/{name}/")
-    // Do something
 }
