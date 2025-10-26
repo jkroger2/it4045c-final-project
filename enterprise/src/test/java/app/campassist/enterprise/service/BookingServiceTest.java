@@ -13,7 +13,7 @@ import app.campassist.enterprise.dto.BookingDTO;
 public class BookingServiceTest {
 
     @Autowired
-    private IBookingService bookingService;
+    private BookingService bookingService;
 
     @Test
     void contextLoads() {
@@ -34,12 +34,12 @@ public class BookingServiceTest {
     @Test
     void fetchBookingById_returnsBookingForId() {
         BookingDTO existingBooking = bookingService.fetchAllBookings().get(0);
-        String id = existingBooking.getId().toString();
-        String userId = existingBooking.getUserId().toString();
+        UUID id = existingBooking.getId();
+        UUID userId = existingBooking.getUserId();
 
         BookingDTO booking = bookingService.fetchBookingById(id);
-        assert booking.getId().toString().equals(id);
-        assert booking.getUserId().toString().equals(userId);
+        assert booking.getId().equals(id);
+        assert booking.getUserId().equals(userId);
     }
 
     /**
@@ -75,7 +75,7 @@ public class BookingServiceTest {
     @Test
     void deleteBooking_deletesBookingWithGivenId() {
         BookingDTO dto = bookingService.fetchAllBookings().get(0);
-        String id = dto.getId().toString();
+        UUID id = dto.getId();
 
         bookingService.deleteBooking(id);
 

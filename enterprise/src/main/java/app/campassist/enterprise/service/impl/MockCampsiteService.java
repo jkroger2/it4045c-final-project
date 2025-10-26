@@ -1,19 +1,22 @@
-package app.campassist.enterprise.service;
+package app.campassist.enterprise.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import app.campassist.enterprise.dto.CampsiteDTO;
+import app.campassist.enterprise.service.CampsiteService;
 
 @Service
-public class CampsiteServiceStub implements ICampsiteService {
+@Profile("mock")
+public class MockCampsiteService implements CampsiteService {
 
     private final List<CampsiteDTO> campsites = new ArrayList<>();
 
-    public CampsiteServiceStub() {
+    public MockCampsiteService() {
         // In memory stub data
         campsites.add(
             new CampsiteDTO(
@@ -55,16 +58,16 @@ public class CampsiteServiceStub implements ICampsiteService {
     }
 
     @Override
-    public CampsiteDTO fetchCampsiteById(String id) {
+    public CampsiteDTO fetchCampsiteById(UUID id) {
 
         return campsites.stream()
-            .filter(campsite -> campsite.getId().toString().equals(id))
+            .filter(campsite -> campsite.getId().equals(id))
             .findFirst()
             .orElse(null);
     }
 
     @Override
-    public CampsiteDTO addCampsite(CampsiteDTO dto) {
+    public CampsiteDTO createCampsite(CampsiteDTO dto) {
         CampsiteDTO campsite = new CampsiteDTO(
             UUID.randomUUID(),
             dto.getName(),
@@ -85,14 +88,14 @@ public class CampsiteServiceStub implements ICampsiteService {
 
     @Override
     public CampsiteDTO updateCampsite(CampsiteDTO campsite) {
-        CampsiteDTO existingCampsite = fetchCampsiteById(campsite.getId().toString());
+        CampsiteDTO existingCampsite = fetchCampsiteById(campsite.getId());
         campsites.remove(existingCampsite);
         campsites.add(campsite);
         return campsite;
     }
 
     @Override
-    public void deleteCampsite(String id) {
-        campsites.removeIf(campsite -> campsite.getId().toString().equals(id));
+    public void deleteCampsite(UUID id) {
+        campsites.removeIf(campsite -> campsite.getId().equals(id));
     }
 }

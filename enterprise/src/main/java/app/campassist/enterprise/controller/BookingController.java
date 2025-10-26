@@ -14,16 +14,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import app.campassist.enterprise.dto.BookingDTO;
-import app.campassist.enterprise.service.IBookingService
+import app.campassist.enterprise.service.BookingService
 ;
 
 @Controller
 @RequestMapping("/api/bookings/")
 public class BookingController {
 
-    private final IBookingService bookingService;
+    private final BookingService bookingService;
 
-    public BookingController(IBookingService bookingService) {
+    public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
 
@@ -41,7 +41,7 @@ public class BookingController {
      */
     @GetMapping("/{id}/")
     public ResponseEntity<BookingDTO> getBookingById(@PathVariable String id) {
-        BookingDTO booking = bookingService.fetchBookingById(id);
+        BookingDTO booking = bookingService.fetchBookingById(UUID.fromString(id));
         return ResponseEntity.ok(booking);
     }
 
@@ -70,7 +70,7 @@ public class BookingController {
      */
     @DeleteMapping("/{id}/")
     public ResponseEntity<Void> deleteBooking(@PathVariable String id) {
-        bookingService.deleteBooking(id);
+        bookingService.deleteBooking(UUID.fromString(id));
         return ResponseEntity.noContent().build();
     }
 }

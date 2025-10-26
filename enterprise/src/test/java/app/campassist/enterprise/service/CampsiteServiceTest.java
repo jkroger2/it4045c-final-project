@@ -1,6 +1,7 @@
 package app.campassist.enterprise.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,7 @@ import app.campassist.enterprise.dto.CampsiteDTO;
 public class CampsiteServiceTest {
 
     @Autowired
-    private ICampsiteService campsiteService;
+    private CampsiteService campsiteService;
 
     @Test
     void contextLoads() {
@@ -33,11 +34,11 @@ public class CampsiteServiceTest {
     @Test
     void fetchCampsiteById_returnsCampsiteForId() {
         CampsiteDTO existingCampsite = campsiteService.fetchAllCampsites().get(0);
-        String id = existingCampsite.getId().toString();
+        UUID id = existingCampsite.getId();
         String name = existingCampsite.getName();
 
         CampsiteDTO campsite = campsiteService.fetchCampsiteById(id);
-        assert campsite.getId().toString().equals(id);
+        assert campsite.getId().equals(id);
         assert campsite.getName().equals(name);
     }
 
@@ -50,7 +51,7 @@ public class CampsiteServiceTest {
         CampsiteDTO dto = new CampsiteDTO();
         dto.setName("Test Campsite");
 
-        CampsiteDTO campsite = campsiteService.addCampsite(dto);
+        CampsiteDTO campsite = campsiteService.createCampsite(dto);
 
         assert campsite.getName().equals(dto.getName());
     }
@@ -80,7 +81,7 @@ public class CampsiteServiceTest {
     @Test 
     void deleteCampsite_deletesCampsiteForId() {
         CampsiteDTO dto = campsiteService.fetchAllCampsites().get(0);
-        String id = dto.getId().toString();
+        UUID id = dto.getId();
 
         campsiteService.deleteCampsite(id);
 

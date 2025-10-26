@@ -1,4 +1,4 @@
-package app.campassist.enterprise.service;
+package app.campassist.enterprise.service.impl;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -6,15 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import app.campassist.enterprise.dto.BookingDTO;
+import app.campassist.enterprise.service.BookingService;
 
 @Service
-public class BookingServiceStub implements IBookingService {
+@Profile("mock")
+public class MockBookingService implements BookingService {
     private final List<BookingDTO> bookings = new ArrayList<>();
 
-    public BookingServiceStub() {
+    public MockBookingService() {
         // In memory stub data
         bookings.add(
             new BookingDTO(
@@ -46,9 +49,9 @@ public class BookingServiceStub implements IBookingService {
     }
 
     @Override
-    public BookingDTO fetchBookingById(String id) {
+    public BookingDTO fetchBookingById(UUID id) {
         return bookings.stream()
-            .filter(booking -> booking.getId().toString().equals(id))
+            .filter(booking -> booking.getId().equals(id))
             .findFirst()
             .orElse(null);
     }
@@ -70,14 +73,14 @@ public class BookingServiceStub implements IBookingService {
 
     @Override
     public BookingDTO updateBooking(BookingDTO booking) {
-        BookingDTO existingBooking = fetchBookingById(booking.getId().toString());
+        BookingDTO existingBooking = fetchBookingById(booking.getId());
         bookings.remove(existingBooking);
         bookings.add(booking);
         return booking;
     }
 
     @Override
-    public void deleteBooking(String id) {
-        bookings.removeIf(booking -> booking.getId().toString().equals(id));
+    public void deleteBooking(UUID id) {
+        bookings.removeIf(booking -> booking.getId().equals(id));
     }
 }
