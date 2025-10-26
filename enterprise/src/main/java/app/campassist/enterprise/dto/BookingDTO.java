@@ -1,7 +1,7 @@
 package app.campassist.enterprise.dto;
 
+import java.time.LocalDate;
 import java.util.UUID;
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,8 +17,8 @@ class BookingDTO {
     private String lastName;
     private String email;
     private String phoneNumber;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private double total;
     private String status;
 }
