@@ -8,18 +8,30 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import app.campassist.enterprise.dto.CampsiteDTO;
 
+/**
+ * Integration tests for {@link ICampsiteService}.
+ *
+ * <p>This test class uses {@link SpringBootTest} to load the full Spring
+ * application context and autowire the {@link ICampsiteService} implementation.</p>
+ *
+ * <p>Tests include verifying that campsites can be fetched, added, updated,
+ * and deleted correctly.</p>
+ */
 @SpringBootTest
 public class CampsiteServiceTest {
 
     @Autowired
     private ICampsiteService campsiteService;
 
+    /**
+     * Test that the Spring application context loads successfully.
+     */
     @Test
     void contextLoads() {
     }
 
     /**
-     * Test fetchAllCampsites returns a non-empty list of campsites
+     * Test that {@link ICampsiteService#fetchAllCampsites()} returns a non-empty list of campsites.
      */
     @Test
     void testFetchAllCampsites_returnsListOfCampsites() {
@@ -28,7 +40,7 @@ public class CampsiteServiceTest {
     }
 
     /**
-     * Test fetchCampsiteById returns a campsite with the correct id
+     * Test that {@link ICampsiteService#fetchCampsiteById(String)} returns a campsite with the correct ID.
      */
     @Test
     void fetchCampsiteById_returnsCampsiteForId() {
@@ -41,9 +53,8 @@ public class CampsiteServiceTest {
         assert campsite.getName().equals(name);
     }
 
-
     /**
-     * Test addCampsite adds a campsite with given details
+     * Test that {@link ICampsiteService#addCampsite(CampsiteDTO)} adds a campsite with the given details.
      */
     @Test
     void addCampsite_addsCampsiteWithGivenDetails() {
@@ -56,7 +67,7 @@ public class CampsiteServiceTest {
     }
 
     /**
-     * Test updateCampsite updates a campsite with given details
+     * Test that {@link ICampsiteService#updateCampsite(CampsiteDTO)} updates a campsite with the given details.
      */
     @Test
     void updateCampsite_updatesCampsiteWithGivenDetails() {
@@ -75,9 +86,9 @@ public class CampsiteServiceTest {
     }
 
     /**
-     * Test deleteCampsite deletes a campsite with given id
+     * Test that {@link ICampsiteService#deleteCampsite(String)} deletes a campsite with the given ID.
      */
-    @Test 
+    @Test
     void deleteCampsite_deletesCampsiteForId() {
         CampsiteDTO dto = campsiteService.fetchAllCampsites().get(0);
         String id = dto.getId().toString();
@@ -85,6 +96,5 @@ public class CampsiteServiceTest {
         campsiteService.deleteCampsite(id);
 
         assert campsiteService.fetchCampsiteById(id) == null;
-
     }
 }

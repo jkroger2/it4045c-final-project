@@ -16,18 +16,43 @@ import org.springframework.web.bind.annotation.RestController;
 import app.campassist.enterprise.dto.BookingDTO;
 import app.campassist.enterprise.service.IBookingService;
 
+/**
+ * REST controller for managing bookings in the CampAssist system.
+ * Provides CRUD operations for booking resources via HTTP endpoints.
+ *
+ * <p>Base URL: /api/bookings</p>
+ *
+ * <p>Supported operations:
+ * <ul>
+ *     <li>GET /api/bookings - List all bookings</li>
+ *     <li>GET /api/bookings/{id} - Retrieve a booking by ID</li>
+ *     <li>POST /api/bookings - Create a new booking</li>
+ *     <li>PUT /api/bookings/{id} - Update an existing booking</li>
+ *     <li>DELETE /api/bookings/{id} - Delete a booking by ID</li>
+ * </ul>
+ * </p>
+ *
+ * @author
+ */
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingController {
 
     private final IBookingService bookingService;
 
+    /**
+     * Constructs a new BookingController with the provided booking service.
+     *
+     * @param bookingService the service used to manage bookings
+     */
     public BookingController(IBookingService bookingService) {
         this.bookingService = bookingService;
     }
 
     /**
-     * GET /api/bookings
+     * Retrieves a list of all bookings.
+     *
+     * @return ResponseEntity containing a list of BookingDTO objects
      */
     @GetMapping
     public ResponseEntity<List<BookingDTO>> getAllBookings() {
@@ -36,7 +61,10 @@ public class BookingController {
     }
 
     /**
-     * GET /api/bookings/{id}
+     * Retrieves a single booking by its ID.
+     *
+     * @param id the ID of the booking to retrieve
+     * @return ResponseEntity containing the BookingDTO object
      */
     @GetMapping("/{id}")
     public ResponseEntity<BookingDTO> getBookingById(@PathVariable String id) {
@@ -45,7 +73,10 @@ public class BookingController {
     }
 
     /**
-     * POST /api/bookings
+     * Creates a new booking.
+     *
+     * @param booking the booking information to create
+     * @return ResponseEntity containing the newly created BookingDTO
      */
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<BookingDTO> addBooking(@RequestBody BookingDTO booking) {
@@ -54,7 +85,11 @@ public class BookingController {
     }
 
     /**
-     * PUT /api/bookings/{id}
+     * Updates an existing booking identified by its ID.
+     *
+     * @param id the ID of the booking to update
+     * @param booking the updated booking information
+     * @return ResponseEntity containing the updated BookingDTO
      */
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<BookingDTO> updateBooking(@PathVariable String id, @RequestBody BookingDTO booking) {
@@ -65,7 +100,10 @@ public class BookingController {
     }
 
     /**
-     * DELETE /api/bookings/{id}
+     * Deletes a booking by its ID.
+     *
+     * @param id the ID of the booking to delete
+     * @return ResponseEntity with HTTP status 204 (No Content)
      */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBooking(@PathVariable String id) {
