@@ -3,7 +3,9 @@ package app.campassist.enterprise.controller;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,14 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import app.campassist.enterprise.dto.BookingDTO;
 import app.campassist.enterprise.service.IBookingService;
 
 /**
- * REST controller for managing bookings in the CampAssist system.
- * Provides CRUD operations for booking resources via HTTP endpoints.
+ * Controller for managing bookings in the CampAssist system.
+ * Provides operations for booking resources via HTTP endpoints.
  *
  * <p>Base URL: /api/bookings</p>
  *
@@ -34,7 +35,7 @@ import app.campassist.enterprise.service.IBookingService;
  *
  * @author
  */
-@RestController
+@Controller // Changed from @RestController to @Controller
 @RequestMapping("/api/bookings")
 public class BookingController {
 
@@ -57,7 +58,7 @@ public class BookingController {
     @GetMapping
     public ResponseEntity<List<BookingDTO>> getAllBookings() {
         List<BookingDTO> bookings = bookingService.fetchAllBookings();
-        return ResponseEntity.ok(bookings);
+        return new ResponseEntity<>(bookings, HttpStatus.OK); // Returning JSON as response
     }
 
     /**
@@ -69,7 +70,7 @@ public class BookingController {
     @GetMapping("/{id}")
     public ResponseEntity<BookingDTO> getBookingById(@PathVariable String id) {
         BookingDTO booking = bookingService.fetchBookingById(id);
-        return ResponseEntity.ok(booking);
+        return new ResponseEntity<>(booking, HttpStatus.OK); // Returning JSON as response
     }
 
     /**
@@ -81,7 +82,7 @@ public class BookingController {
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<BookingDTO> addBooking(@RequestBody BookingDTO booking) {
         BookingDTO newBooking = bookingService.addBooking(booking);
-        return ResponseEntity.ok(newBooking);
+        return new ResponseEntity<>(newBooking, HttpStatus.CREATED); // Returning JSON as response
     }
 
     /**
@@ -96,7 +97,7 @@ public class BookingController {
         UUID bookingId = UUID.fromString(id);
         booking.setId(bookingId);
         BookingDTO updatedBooking = bookingService.updateBooking(booking);
-        return ResponseEntity.ok(updatedBooking);
+        return new ResponseEntity<>(updatedBooking, HttpStatus.OK); // Returning JSON as response
     }
 
     /**
@@ -108,6 +109,6 @@ public class BookingController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBooking(@PathVariable String id) {
         bookingService.deleteBooking(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build(); // No content response (no body)
     }
 }
