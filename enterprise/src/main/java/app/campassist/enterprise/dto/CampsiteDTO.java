@@ -7,10 +7,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-public @Data
+// ahart21 suggestions
+// Make the DTO class public so it's accessible from other packages (services, controllers, tests)
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-class CampsiteDTO {
+public class CampsiteDTO {
     private UUID id;
     private String name;
     private String description;
