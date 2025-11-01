@@ -1,9 +1,10 @@
 package app.campassist.enterprise.unit.service;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import app.campassist.enterprise.dto.CampsiteDTO;
+import app.campassist.enterprise.mapper.CampsiteMapper;
+import app.campassist.enterprise.model.Campsite;
+import app.campassist.enterprise.repository.CampsiteRepository;
+import app.campassist.enterprise.service.impl.CampsiteServiceImpl;
 
 import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.Test;
@@ -12,11 +13,10 @@ import org.mockito.Mock;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import app.campassist.enterprise.dto.CampsiteDTO;
-import app.campassist.enterprise.mapper.CampsiteMapper;
-import app.campassist.enterprise.model.Campsite;
-import app.campassist.enterprise.repository.CampsiteRepository;
-import app.campassist.enterprise.service.impl.CampsiteServiceImpl;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
 public class CampsiteServiceTest {

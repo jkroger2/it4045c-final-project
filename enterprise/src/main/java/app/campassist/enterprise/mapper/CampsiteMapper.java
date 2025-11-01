@@ -1,9 +1,9 @@
 package app.campassist.enterprise.mapper;
 
-import org.mapstruct.Mapper;
-
 import app.campassist.enterprise.dto.CampsiteDTO;
 import app.campassist.enterprise.model.Campsite;
+
+import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface CampsiteMapper {

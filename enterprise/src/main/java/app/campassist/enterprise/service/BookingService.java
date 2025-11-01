@@ -1,9 +1,9 @@
 package app.campassist.enterprise.service;
 
+import app.campassist.enterprise.dto.BookingDTO;
+
 import java.util.List;
 import java.util.UUID;
-
-import app.campassist.enterprise.dto.BookingDTO;
 
 public interface BookingService {
     /**
