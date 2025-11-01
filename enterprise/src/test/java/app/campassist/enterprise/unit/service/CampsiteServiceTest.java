@@ -84,21 +84,9 @@ public class CampsiteServiceTest {
         
         Campsite entity = new Campsite();
         entity.setId(id);
-        entity.setName("Test Campsite");
-        entity.setDescription("Test Description");
-        entity.setAddress("Test Address");
-        entity.setCity("Test City");
-        entity.setState("Test State");
-        entity.setZipCode("Test Zip");
-        entity.setMaxRigLength(BigDecimal.valueOf(30.00));
-        entity.setPricePerNight(BigDecimal.valueOf(25.00));
-        entity.setAmenities(null);
-        entity.setImages(null);
-        entity.setTags(null);
 
         CampsiteDTO dto = new CampsiteDTO();
         dto.setId(id);
-        dto.setName("Test Campsite");
 
         when(campsiteRepository.findById(any(UUID.class))).thenReturn(Optional.of(entity)); 
         when(campsiteMapper.toDTO(any(Campsite.class))).thenReturn(dto);
@@ -163,28 +151,11 @@ public class CampsiteServiceTest {
         dto.setId(id);
         dto.setName("Updated Campsite");
         dto.setDescription("Updated Description");
-        dto.setAddress("123 Updated St");
-        dto.setCity("Updated City");
-        dto.setState("US");
-        dto.setZipCode("54321");
-        dto.setMaxRigLength(BigDecimal.valueOf(35.00));
-        dto.setPricePerNight(BigDecimal.valueOf(30.00));
-        dto.setAmenities(null);
-        dto.setImages(null);
 
         Campsite entity = new Campsite();
         entity.setId(id);
         entity.setName(dto.getName());
         entity.setDescription(dto.getDescription());
-        entity.setAddress(dto.getAddress());
-        entity.setCity(dto.getCity());
-        entity.setState(dto.getState());
-        entity.setZipCode(dto.getZipCode());
-        entity.setMaxRigLength(dto.getMaxRigLength());
-        entity.setPricePerNight(dto.getPricePerNight());
-        entity.setAmenities(null);
-        entity.setImages(null);
-        entity.setTags(null);
 
         when(campsiteMapper.toEntity(any(CampsiteDTO.class))).thenReturn(entity);
         when(campsiteRepository.save(any(Campsite.class))).thenReturn(entity);

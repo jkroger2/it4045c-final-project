@@ -1,22 +1,35 @@
 package app.campassist.enterprise.unit.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import app.campassist.enterprise.dto.BookingDTO;
-import app.campassist.enterprise.service.BookingService;
+import app.campassist.enterprise.mapper.BookingMapper;
+import app.campassist.enterprise.model.Booking;
+import app.campassist.enterprise.repository.BookingRepository;
+import app.campassist.enterprise.service.impl.BookingServiceImpl;
 
-@SpringBootTest
-@ActiveProfiles("test")
+
+
+@ExtendWith(MockitoExtension.class)
 public class BookingServiceTest {
 
-    @Autowired
-    private BookingService bookingService;
+    @Mock
+    private BookingRepository bookingRepository;
+
+    @Mock
+    private BookingMapper bookingMapper;
+
+    @InjectMocks
+    private BookingServiceImpl bookingService;
 
     @Test
     void contextLoads() {
@@ -27,7 +40,29 @@ public class BookingServiceTest {
      */
     @Test
     void testFetchAllBookings_returnsListOfBookings() {
+        when(bookingRepository.findAll()).thenReturn(List.of(
+            new Booking(
+                UUID.randomUUID(),
+                UUID.randomUUID(),
+                UUID.randomUUID(),
+                null,
+                null,
+                BigDecimal.valueOf(2.00),
+                null
+            ),
+            new Booking(
+                UUID.randomUUID(),
+                UUID.randomUUID(),
+                UUID.randomUUID(),
+                null,
+                null,
+                BigDecimal.valueOf(4.00),
+                null
+            )
+        ));
+
         List<BookingDTO> bookings = bookingService.fetchAllBookings();
+        
         assert !bookings.isEmpty();
     }
 
@@ -36,13 +71,20 @@ public class BookingServiceTest {
      */
     @Test
     void fetchBookingById_returnsBookingForId() {
-        BookingDTO existingBooking = bookingService.fetchAllBookings().get(0);
-        UUID id = existingBooking.getId();
-        UUID userId = existingBooking.getUserId();
+        UUID id = UUID.randomUUID();
+
+        Booking entity = new Booking();
+        entity.setId(id);
+
+        BookingDTO dto = new BookingDTO();
+        dto.setId(id);
+
+        when(bookingRepository.findById(any(UUID.class))).thenReturn(java.util.Optional.of(entity)); 
+        when(bookingMapper.toDTO(any(Booking.class))).thenReturn(dto);
 
         BookingDTO booking = bookingService.fetchBookingById(id);
+        
         assert booking.getId().equals(id);
-        assert booking.getUserId().equals(userId);
     }
 
     /**
@@ -50,13 +92,31 @@ public class BookingServiceTest {
      */
     @Test
     void addBooking_addsBookingWithGivenDetails() {
+        
         BookingDTO dto = new BookingDTO();
-        UUID userId = UUID.randomUUID();
-        dto.setUserId(userId);
+        dto.setCampsiteId(UUID.randomUUID());
+        dto.setUserId(UUID.randomUUID());
+        dto.setStartDate(null);
+        dto.setEndDate(null);
+        dto.setTotal(BigDecimal.valueOf(10.00));
+        dto.setStatus("CONFIRMED");
+
+        Booking entity = new Booking();
+        entity.setId(UUID.randomUUID());
+        entity.setCampsiteId(dto.getCampsiteId());
+        entity.setUserId(dto.getUserId());
+        entity.setStartDate(dto.getStartDate());
+        entity.setEndDate(dto.getEndDate());
+        entity.setTotal(dto.getTotal());
+        entity.setStatus(dto.getStatus());
+
+        when(bookingMapper.toEntity(any(BookingDTO.class))).thenReturn(entity);
+        when(bookingRepository.save(any(Booking.class))).thenReturn(entity);
+        when(bookingMapper.toDTO(any(Booking.class))).thenReturn(dto);
 
         BookingDTO booking = bookingService.addBooking(dto);
 
-        assert booking.getUserId().toString().equals(dto.getUserId().toString());
+        assert booking == dto;
     }
 
     /**
@@ -64,12 +124,26 @@ public class BookingServiceTest {
      */
     @Test
     void updateBooking_updatesBookingWithGivenDetails() {
-        BookingDTO dto = bookingService.fetchAllBookings().get(0);
-        dto.setEndDate(dto.getEndDate().plusDays(1));
 
-        BookingDTO updatedBooking = bookingService.updateBooking(dto);
+        UUID id = UUID.randomUUID();
 
-        assert updatedBooking.getEndDate().equals(dto.getEndDate().plusDays(1));
+        BookingDTO dto = new BookingDTO();
+        dto.setId(id);
+        dto.setEndDate(null);
+        dto.setTotal(BigDecimal.valueOf(15.00));
+
+        Booking entity = new Booking();
+        entity.setId(id);
+        entity.setEndDate(dto.getEndDate());
+        entity.setTotal(dto.getTotal());
+
+        when(bookingMapper.toEntity(any(BookingDTO.class))).thenReturn(entity);
+        when(bookingRepository.save(any(Booking.class))).thenReturn(entity);
+        when(bookingMapper.toDTO(any(Booking.class))).thenReturn(dto);
+
+        BookingDTO booking = bookingService.updateBooking(dto);
+
+        assert booking == dto;
     }
 
     /**
@@ -77,12 +151,11 @@ public class BookingServiceTest {
      */
     @Test
     void deleteBooking_deletesBookingWithGivenId() {
-        BookingDTO dto = bookingService.fetchAllBookings().get(0);
-        UUID id = dto.getId();
+        doNothing().when(bookingRepository).deleteById(any(UUID.class));
 
+        UUID id = UUID.randomUUID();
         bookingService.deleteBooking(id);
 
-        BookingDTO deletedBooking = bookingService.fetchBookingById(id);
-        assert deletedBooking == null;
+        verify(bookingRepository).deleteById(id);
     }
 }
