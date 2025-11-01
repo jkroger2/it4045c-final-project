@@ -1,40 +1,58 @@
 package app.campassist.enterprise.service;
 
 import java.util.List;
-
 import app.campassist.enterprise.dto.BookingDTO;
 
+/**
+ * Service interface for managing bookings.
+ *
+ * <p>Provides methods for creating, retrieving, updating, and deleting
+ * {@link BookingDTO} objects. Implementations of this interface may
+ * persist bookings in memory, in a database, or via other storage mechanisms.</p>
+ */
 public interface IBookingService {
+
     /**
-     * Fetch all bookings.
-     * @return
+     * Retrieves all bookings.
+     *
+     * @return a list of {@link BookingDTO} objects representing all bookings
      */
     List<BookingDTO> fetchAllBookings();
 
     /**
-     * Fetch a booking by its ID.
-     * @param id The unique identifier of the booking.
-     * @return The booking object if found, otherwise null.
+     * Retrieves a booking by its unique identifier.
+     *
+     * @param id the unique identifier of the booking
+     * @return the {@link BookingDTO} corresponding to the given ID, or {@code null} if not found
      */
     BookingDTO fetchBookingById(String id);
 
     /**
-     * Add a new booking.
-     * @param booking The campsite object to add.
-     * @return The added booking with any generated fields populated.
+     * Adds a new booking.
+     *
+     * <p>The returned {@link BookingDTO} may include generated fields, such as
+     * a unique ID, that were not present in the input object.</p>
+     *
+     * @param booking the {@link BookingDTO} to add
+     * @return the added {@link BookingDTO} with generated fields populated
      */
     BookingDTO addBooking(BookingDTO booking);
 
     /**
-     * Update an existing booking.
-     * @param booking The booking object with updated information.
-     * @return The updated booking object.
+     * Updates an existing booking.
+     *
+     * <p>The booking to update is identified by its ID field. The method replaces
+     * the existing booking's data with the values from the provided object.</p>
+     *
+     * @param booking the {@link BookingDTO} containing updated booking information
+     * @return the updated {@link BookingDTO}
      */
     BookingDTO updateBooking(BookingDTO booking);
 
     /**
-     * Delete a booking by its ID.
-     * @param id The unique identifier of the booking.
+     * Deletes a booking by its unique identifier.
+     *
+     * @param id the unique identifier of the booking to delete
      */
     void deleteBooking(String id);
 }

@@ -8,18 +8,30 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import app.campassist.enterprise.dto.BookingDTO;
 
+/**
+ * Integration tests for {@link IBookingService}.
+ *
+ * <p>This test class uses {@link SpringBootTest} to load the full Spring
+ * application context and autowire the {@link IBookingService} implementation.</p>
+ *
+ * <p>Tests include verifying that bookings can be fetched, added, updated,
+ * and deleted correctly.</p>
+ */
 @SpringBootTest
 public class BookingServiceTest {
 
     @Autowired
     private IBookingService bookingService;
 
+    /**
+     * Test that the Spring application context loads successfully.
+     */
     @Test
     void contextLoads() {
     }
 
     /**
-     * Test fetchAllBookings returns a non-empty list of bookings
+     * Test that {@link IBookingService#fetchAllBookings()} returns a non-empty list of bookings.
      */
     @Test
     void testFetchAllBookings_returnsListOfBookings() {
@@ -28,7 +40,7 @@ public class BookingServiceTest {
     }
 
     /**
-     * Test fetchBookingById returns a booking with the correct id
+     * Test that {@link IBookingService#fetchBookingById(String)} returns a booking with the correct ID.
      */
     @Test
     void fetchBookingById_returnsBookingForId() {
@@ -42,7 +54,7 @@ public class BookingServiceTest {
     }
 
     /**
-     * Test addBooking adds a booking with given details
+     * Test that {@link IBookingService#addBooking(BookingDTO)} adds a booking with the given details.
      */
     @Test
     void addBooking_addsBookingWithGivenDetails() {
@@ -57,7 +69,7 @@ public class BookingServiceTest {
     }
 
     /**
-     * Test updateBooking updates a booking with given details
+     * Test that {@link IBookingService#updateBooking(BookingDTO)} updates a booking with the given details.
      */
     @Test
     void updateBooking_updatesBookingWithGivenDetails() {
@@ -70,7 +82,7 @@ public class BookingServiceTest {
     }
 
     /**
-     * Test deleteBooking deletes a booking with given id
+     * Test that {@link IBookingService#deleteBooking(String)} deletes a booking with the given ID.
      */
     @Test
     void deleteBooking_deletesBookingWithGivenId() {
