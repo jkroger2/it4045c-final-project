@@ -1,14 +1,13 @@
 package app.campassist.enterprise.model;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.UUID;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "campsites")

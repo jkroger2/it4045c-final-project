@@ -1,8 +1,10 @@
 package app.campassist.enterprise.unit.service;
 
-import java.math.BigDecimal;
-import java.util.List;
-import java.util.UUID;
+import app.campassist.enterprise.dto.BookingDTO;
+import app.campassist.enterprise.mapper.BookingMapper;
+import app.campassist.enterprise.model.Booking;
+import app.campassist.enterprise.repository.BookingRepository;
+import app.campassist.enterprise.service.impl.BookingServiceImpl;
 
 import static org.mockito.Mockito.*;
 import org.junit.jupiter.api.Test;
@@ -11,13 +13,9 @@ import org.mockito.Mock;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import app.campassist.enterprise.dto.BookingDTO;
-import app.campassist.enterprise.mapper.BookingMapper;
-import app.campassist.enterprise.model.Booking;
-import app.campassist.enterprise.repository.BookingRepository;
-import app.campassist.enterprise.service.impl.BookingServiceImpl;
-
-
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.UUID;
 
 @ExtendWith(MockitoExtension.class)
 public class BookingServiceTest {
