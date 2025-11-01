@@ -85,14 +85,13 @@ public class BookingServiceStub implements IBookingService {
      */
     @Override
     public BookingDTO fetchBookingById(String id) {
-        // Null or empty check for id
         if (id == null || id.isEmpty()) {
             throw new IllegalArgumentException("Booking ID cannot be null or empty.");
         }
         return bookings.stream()
                 .filter(booking -> booking.getId().toString().equals(id))
                 .findFirst()
-                .orElse(null);  // Or you could throw an exception here if needed
+                .orElseThrow(() -> new BookingNotFoundException("Booking with ID " + id + " not found"));
     }
 
     /**
