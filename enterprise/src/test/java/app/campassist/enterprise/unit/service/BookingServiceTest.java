@@ -1,4 +1,4 @@
-package app.campassist.enterprise.service;
+package app.campassist.enterprise.unit.service;
 
 import java.util.List;
 import java.util.UUID;
@@ -6,10 +6,13 @@ import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import app.campassist.enterprise.dto.BookingDTO;
+import app.campassist.enterprise.service.BookingService;
 
 @SpringBootTest
+@ActiveProfiles("test")
 public class BookingServiceTest {
 
     @Autowired

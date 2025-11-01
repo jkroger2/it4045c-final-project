@@ -37,7 +37,7 @@ public class BookingServiceImpl implements BookingService{
     public BookingDTO fetchBookingById(UUID id) {
         BookingDTO booking = bookingRepository.findById(id)
                             .map(bookingMapper::toDTO)
-                            .orElseThrow();
+                            .orElse(null);
         return booking;
     }
 

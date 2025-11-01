@@ -37,7 +37,7 @@ public class CampsiteServiceImpl implements CampsiteService {
     public CampsiteDTO fetchCampsiteById(UUID id) {
         CampsiteDTO campsite = campsiteRepository.findById(id)
                                 .map(campsiteMapper::toDTO)
-                                .orElseThrow();
+                                .orElse(null);
         return campsite;
     }
 

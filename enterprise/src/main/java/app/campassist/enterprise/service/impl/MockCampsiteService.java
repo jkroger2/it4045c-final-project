@@ -1,5 +1,6 @@
 package app.campassist.enterprise.service.impl;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -27,8 +28,8 @@ public class MockCampsiteService implements CampsiteService {
                 "Springfield",
                 "IL",
                 "62701",
-                25.0,
-                50.00,
+                BigDecimal.valueOf(25.0),
+                BigDecimal.valueOf(50.00),
                 List.of("Hiking", "Fishing", "Campfire"),
                 List.of("hhttps://images.pexels.com/photos/1309587/pexels-photo-1309587.jpeg"),
                 List.of("scenic", "family-friendly")
@@ -43,8 +44,8 @@ public class MockCampsiteService implements CampsiteService {
                 "Lakeside",
                 "CA",
                 "92040",
-                30.5,
-                75.00,
+                BigDecimal.valueOf(30.5),
+                BigDecimal.valueOf(75.00),
                 List.of("Fishing", "Boating", "Hiking"),
                 List.of("https://images.pexels.com/photos/4993949/pexels-photo-4993949.jpeg"),
                 List.of("waterfront", "nature")
