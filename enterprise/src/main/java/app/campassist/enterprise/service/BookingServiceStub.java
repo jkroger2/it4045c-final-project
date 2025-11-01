@@ -85,10 +85,14 @@ public class BookingServiceStub implements IBookingService {
      */
     @Override
     public BookingDTO fetchBookingById(String id) {
+        // Null or empty check for id
+        if (id == null || id.isEmpty()) {
+            throw new IllegalArgumentException("Booking ID cannot be null or empty.");
+        }
         return bookings.stream()
                 .filter(booking -> booking.getId().toString().equals(id))
                 .findFirst()
-                .orElse(null);
+                .orElse(null);  // Or you could throw an exception here if needed
     }
 
     /**
@@ -99,6 +103,11 @@ public class BookingServiceStub implements IBookingService {
      */
     @Override
     public BookingDTO addBooking(BookingDTO dto) {
+        // Null check for BookingDTO and essential fields
+        if (dto == null || dto.getFirstName() == null || dto.getLastName() == null || dto.getEmail() == null) {
+            throw new IllegalArgumentException("Booking information is incomplete.");
+        }
+
         BookingDTO newBooking = new BookingDTO(
                 UUID.randomUUID(),
                 dto.getCampsiteId(),
