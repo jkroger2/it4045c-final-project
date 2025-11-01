@@ -85,9 +85,12 @@ public class BookingServiceStub implements IBookingService {
      */
     @Override
     public BookingDTO fetchBookingById(String id) {
+        // Check if id is null or empty
         if (id == null || id.isEmpty()) {
             throw new IllegalArgumentException("Booking ID cannot be null or empty.");
         }
+
+        // Attempt to find booking by ID, otherwise throw custom exception
         return bookings.stream()
                 .filter(booking -> booking.getId().toString().equals(id))
                 .findFirst()
@@ -107,6 +110,7 @@ public class BookingServiceStub implements IBookingService {
             throw new IllegalArgumentException("Booking information is incomplete.");
         }
 
+        // Create a new booking with UUID and other provided details
         BookingDTO newBooking = new BookingDTO(
                 UUID.randomUUID(),
                 dto.getCampsiteId(),
@@ -131,6 +135,7 @@ public class BookingServiceStub implements IBookingService {
      */
     @Override
     public BookingDTO updateBooking(BookingDTO booking) {
+        // Fetch the existing booking and update it
         BookingDTO existingBooking = fetchBookingById(booking.getId().toString());
         bookings.remove(existingBooking);
         bookings.add(booking);
