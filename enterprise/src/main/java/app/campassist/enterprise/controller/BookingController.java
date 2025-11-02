@@ -48,7 +48,7 @@ public class BookingController {
     /**
      * POST /api/bookings/
      */
-    @PostMapping(value="/", consumes="application/json", produces="application/json")
+    @PostMapping("/")
     public ResponseEntity<BookingDTO> addBooking(@RequestBody BookingDTO booking) {
         BookingDTO newBooking = bookingService.addBooking(booking);
         return ResponseEntity.ok(newBooking);
@@ -57,7 +57,7 @@ public class BookingController {
     /**
      * PUT /api/bookings/{id}/
      */
-    @PutMapping(value="/{id}/", consumes="application/json", produces="application/json")
+    @PutMapping("/{id}/")
     public ResponseEntity<BookingDTO> updateBooking(@PathVariable String id, @RequestBody BookingDTO booking) {
         UUID bookingId = UUID.fromString(id);
         booking.setId(bookingId);

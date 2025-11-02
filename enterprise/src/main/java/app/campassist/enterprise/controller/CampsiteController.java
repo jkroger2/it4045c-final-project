@@ -47,7 +47,7 @@ public class CampsiteController {
     /**
      * POST /api/campsites/
      */
-    @PostMapping(value="/", consumes="application/json", produces="application/json")
+    @PostMapping("/")
     public ResponseEntity<CampsiteDTO> createCampsite(@RequestBody CampsiteDTO campsite) {
         CampsiteDTO newCampsite = campsiteService.createCampsite(campsite);
         return ResponseEntity.ok(newCampsite);
@@ -56,7 +56,7 @@ public class CampsiteController {
     /**
      * PUT /api/campsites/{id}/
      */
-    @PutMapping(value="/{id}/", consumes="application/json", produces="application/json")
+    @PutMapping("/{id}/")
     public ResponseEntity<CampsiteDTO> updateCampsite(@PathVariable String id, @RequestBody CampsiteDTO campsite) {
         UUID campsiteId = UUID.fromString(id);
         campsite.setId(campsiteId);

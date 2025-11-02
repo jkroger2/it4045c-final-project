@@ -44,15 +44,13 @@ public class CampsiteServiceImpl implements CampsiteService {
     @Override
     public CampsiteDTO createCampsite(CampsiteDTO dto) {
         Campsite campsite = campsiteMapper.toEntity(dto);
-        Campsite savedCampsite = campsiteRepository.save(campsite);
-        return campsiteMapper.toDTO(savedCampsite);
+        return campsiteMapper.toDTO(campsiteRepository.save(campsite));
     }
 
     @Override
     public CampsiteDTO updateCampsite(CampsiteDTO dto) {
         Campsite campsite = campsiteMapper.toEntity(dto);
-        Campsite updatedCampsite = campsiteRepository.save(campsite);
-        return campsiteMapper.toDTO(updatedCampsite);
+        return campsiteMapper.toDTO(campsiteRepository.save(campsite));
     }
 
     @Override
