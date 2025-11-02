@@ -8,10 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-public @Data
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-class CampsiteDTO {
+public class CampsiteDTO {
     private UUID id;
     private String name;
     private String description;

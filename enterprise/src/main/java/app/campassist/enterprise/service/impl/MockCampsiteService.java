@@ -31,7 +31,7 @@ public class MockCampsiteService implements CampsiteService {
                 BigDecimal.valueOf(25.0),
                 BigDecimal.valueOf(50.00),
                 List.of("Hiking", "Fishing", "Campfire"),
-                List.of("hhttps://images.pexels.com/photos/1309587/pexels-photo-1309587.jpeg"),
+                List.of("https://images.pexels.com/photos/1309587/pexels-photo-1309587.jpeg"),
                 List.of("scenic", "family-friendly")
             )
         );

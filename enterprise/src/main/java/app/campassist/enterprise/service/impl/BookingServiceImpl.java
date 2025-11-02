@@ -26,33 +26,29 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public List<BookingDTO> fetchAllBookings() {
-        List<BookingDTO> bookings = bookingRepository.findAll()
-                            .stream()
-                            .map(bookingMapper::toDTO)
-                            .toList();
-        return bookings;
+        return bookingRepository.findAll()
+                .stream()
+                .map(bookingMapper::toDTO)
+                .toList();
     }
 
     @Override
     public BookingDTO fetchBookingById(UUID id) {
-        BookingDTO booking = bookingRepository.findById(id)
-                            .map(bookingMapper::toDTO)
-                            .orElse(null);
-        return booking;
+        return bookingRepository.findById(id)
+                .map(bookingMapper::toDTO)
+                .orElse(null);
     }
 
     @Override
     public BookingDTO addBooking(BookingDTO dto) {
         Booking booking = bookingMapper.toEntity(dto);
-        Booking savedBooking = bookingRepository.save(booking);
-        return bookingMapper.toDTO(savedBooking);
+        return bookingMapper.toDTO(bookingRepository.save(booking));
     }
 
     @Override
     public BookingDTO updateBooking(BookingDTO dto) {
         Booking booking = bookingMapper.toEntity(dto);
-        Booking updatedBooking = bookingRepository.save(booking);
-        return bookingMapper.toDTO(updatedBooking);
+        return bookingMapper.toDTO(bookingRepository.save(booking));
     }
 
     @Override
