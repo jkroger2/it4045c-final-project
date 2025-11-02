@@ -35,24 +35,21 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public BookingDTO fetchBookingById(UUID id) {
-        BookingDTO booking = bookingRepository.findById(id)
+        return bookingRepository.findById(id)
                             .map(bookingMapper::toDTO)
-                            .orElse(null);
-        return booking;
+                            .orElseThrow(() -> new RuntimeException("Booking not found with id: " + id));
     }
 
     @Override
     public BookingDTO addBooking(BookingDTO dto) {
         Booking booking = bookingMapper.toEntity(dto);
-        Booking savedBooking = bookingRepository.save(booking);
-        return bookingMapper.toDTO(savedBooking);
+        return bookingMapper.toDTO(bookingRepository.save(booking));
     }
 
     @Override
     public BookingDTO updateBooking(BookingDTO dto) {
         Booking booking = bookingMapper.toEntity(dto);
-        Booking updatedBooking = bookingRepository.save(booking);
-        return bookingMapper.toDTO(updatedBooking);
+        return bookingMapper.toDTO(bookingRepository.save(booking));
     }
 
     @Override
