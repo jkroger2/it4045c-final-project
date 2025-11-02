@@ -8,10 +8,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-public @Data
+// ahart21 suggestions
+// Make the DTO class public so it's accessible across packages and frameworks like Jackson can
+// instantiate it for JSON (de)serialization.
+// Lombok annotations must appear directly above the class declaration.
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-class BookingDTO {
+public class BookingDTO {
     private UUID id;
     private UUID campsiteId;
     private UUID userId;
