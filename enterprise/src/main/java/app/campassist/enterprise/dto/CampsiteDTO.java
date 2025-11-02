@@ -1,5 +1,6 @@
 package app.campassist.enterprise.dto;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,8 +21,8 @@ public class CampsiteDTO {
     private String city;
     private String state;
     private String zipCode;
-    private double maxRigLength;
-    private double pricePerNight;
+    private BigDecimal maxRigLength;
+    private BigDecimal pricePerNight;
     private List<String> amenities;
     private List<String> images;
     private List<String> tags;

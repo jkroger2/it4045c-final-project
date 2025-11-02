@@ -24,9 +24,9 @@ import app.campassist.enterprise.service.IBookingService;
 @RequestMapping("/api/bookings")
 public class BookingController {
 
-    private final IBookingService bookingService;
+    private final BookingService bookingService;
 
-    public BookingController(IBookingService bookingService) {
+    public BookingController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
 

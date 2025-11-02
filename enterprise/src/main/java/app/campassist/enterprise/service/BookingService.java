@@ -1,10 +1,11 @@
 package app.campassist.enterprise.service;
 
-import java.util.List;
-
 import app.campassist.enterprise.dto.BookingDTO;
 
-public interface IBookingService {
+import java.util.List;
+import java.util.UUID;
+
+public interface BookingService {
     /**
      * Fetch all bookings.
      * @return
@@ -16,7 +17,7 @@ public interface IBookingService {
      * @param id The unique identifier of the booking.
      * @return The booking object if found, otherwise null.
      */
-    BookingDTO fetchBookingById(String id);
+    BookingDTO fetchBookingById(UUID id);
 
     /**
      * Add a new booking.
@@ -36,5 +37,5 @@ public interface IBookingService {
      * Delete a booking by its ID.
      * @param id The unique identifier of the booking.
      */
-    void deleteBooking(String id);
+    void deleteBooking(UUID id);
 }

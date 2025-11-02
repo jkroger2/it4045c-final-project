@@ -1,10 +1,11 @@
 package app.campassist.enterprise.service;
 
-import java.util.List;
-
 import app.campassist.enterprise.dto.CampsiteDTO;
 
-public interface ICampsiteService {
+import java.util.List;
+import java.util.UUID;
+
+public interface CampsiteService {
     /**
      * Fetch all campsites.
      * @return A list of all campsite objects.
@@ -16,14 +17,14 @@ public interface ICampsiteService {
      * @param id The unique identifier of the campsite.
      * @return The campsite object if found, otherwise null.
      */
-    CampsiteDTO fetchCampsiteById(String id);
+    CampsiteDTO fetchCampsiteById(UUID id);
 
     /**
-     * Add a new campsite.
+     * Creates a new campsite.
      * @param campsite The campsite object to add.
      * @return The added campsite with any generated fields populated.
      */
-    CampsiteDTO addCampsite(CampsiteDTO campsite);
+    CampsiteDTO createCampsite(CampsiteDTO campsite);
 
     /**
      * Update an existing campsite.
@@ -36,5 +37,5 @@ public interface ICampsiteService {
      * Delete a campsite by its ID.
      * @param id The unique identifier of the campsite.
      */
-    void deleteCampsite(String id);
+    void deleteCampsite(UUID id);
 }

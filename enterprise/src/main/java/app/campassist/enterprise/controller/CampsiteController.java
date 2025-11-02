@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import app.campassist.enterprise.dto.CampsiteDTO;
-import app.campassist.enterprise.service.ICampsiteService;
+import app.campassist.enterprise.service.CampsiteService;
 
 // ahart21 suggestions
 // REST improvements: use clean route paths (no trailing slashes) and @RestController for JSON APIs.
@@ -24,9 +24,9 @@ import app.campassist.enterprise.service.ICampsiteService;
 @RequestMapping("/api/campsites")
 public class CampsiteController {
 
-    private final ICampsiteService campsiteService;
+    private final CampsiteService campsiteService;
 
-    public CampsiteController(ICampsiteService campsiteService) {
+    public CampsiteController(CampsiteService campsiteService) {
         this.campsiteService = campsiteService;
     }
 

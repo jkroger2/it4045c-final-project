@@ -1,19 +1,23 @@
-package app.campassist.enterprise.service;
+package app.campassist.enterprise.service.impl;
 
+import app.campassist.enterprise.dto.CampsiteDTO;
+import app.campassist.enterprise.service.CampsiteService;
+
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.stereotype.Service;
-
-import app.campassist.enterprise.dto.CampsiteDTO;
-
 @Service
-public class CampsiteServiceStub implements ICampsiteService {
+@Profile("mock")
+public class MockCampsiteService implements CampsiteService {
 
     private final List<CampsiteDTO> campsites = new ArrayList<>();
 
-    public CampsiteServiceStub() {
+    public MockCampsiteService() {
         // In memory stub data
         campsites.add(
             new CampsiteDTO(
@@ -24,8 +28,8 @@ public class CampsiteServiceStub implements ICampsiteService {
                 "Springfield",
                 "IL",
                 "62701",
-                25.0,
-                50.00,
+                BigDecimal.valueOf(25.0),
+                BigDecimal.valueOf(50.00),
                 List.of("Hiking", "Fishing", "Campfire"),
                 List.of("hhttps://images.pexels.com/photos/1309587/pexels-photo-1309587.jpeg"),
                 List.of("scenic", "family-friendly")
@@ -40,8 +44,8 @@ public class CampsiteServiceStub implements ICampsiteService {
                 "Lakeside",
                 "CA",
                 "92040",
-                30.5,
-                75.00,
+                BigDecimal.valueOf(30.5),
+                BigDecimal.valueOf(75.00),
                 List.of("Fishing", "Boating", "Hiking"),
                 List.of("https://images.pexels.com/photos/4993949/pexels-photo-4993949.jpeg"),
                 List.of("waterfront", "nature")
@@ -55,16 +59,16 @@ public class CampsiteServiceStub implements ICampsiteService {
     }
 
     @Override
-    public CampsiteDTO fetchCampsiteById(String id) {
+    public CampsiteDTO fetchCampsiteById(UUID id) {
 
         return campsites.stream()
-            .filter(campsite -> campsite.getId().toString().equals(id))
+            .filter(campsite -> campsite.getId().equals(id))
             .findFirst()
             .orElse(null);
     }
 
     @Override
-    public CampsiteDTO addCampsite(CampsiteDTO dto) {
+    public CampsiteDTO createCampsite(CampsiteDTO dto) {
         CampsiteDTO campsite = new CampsiteDTO(
             UUID.randomUUID(),
             dto.getName(),
@@ -85,14 +89,14 @@ public class CampsiteServiceStub implements ICampsiteService {
 
     @Override
     public CampsiteDTO updateCampsite(CampsiteDTO campsite) {
-        CampsiteDTO existingCampsite = fetchCampsiteById(campsite.getId().toString());
+        CampsiteDTO existingCampsite = fetchCampsiteById(campsite.getId());
         campsites.remove(existingCampsite);
         campsites.add(campsite);
         return campsite;
     }
 
     @Override
-    public void deleteCampsite(String id) {
-        campsites.removeIf(campsite -> campsite.getId().toString().equals(id));
+    public void deleteCampsite(UUID id) {
+        campsites.removeIf(campsite -> campsite.getId().equals(id));
     }
 }
