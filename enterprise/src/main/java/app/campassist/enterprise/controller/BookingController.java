@@ -3,6 +3,7 @@ package app.campassist.enterprise.controller;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import jakarta.validation.Valid;
 
 import app.campassist.enterprise.dto.BookingDTO;
 import app.campassist.enterprise.service.BookingService
@@ -49,16 +52,16 @@ public class BookingController {
      * POST /api/bookings/
      */
     @PostMapping("/")
-    public ResponseEntity<BookingDTO> addBooking(@RequestBody BookingDTO booking) {
+    public ResponseEntity<BookingDTO> addBooking(@Valid @RequestBody BookingDTO booking) {
         BookingDTO newBooking = bookingService.addBooking(booking);
-        return ResponseEntity.ok(newBooking);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newBooking);
     }
 
     /**
      * PUT /api/bookings/{id}/
      */
     @PutMapping("/{id}/")
-    public ResponseEntity<BookingDTO> updateBooking(@PathVariable String id, @RequestBody BookingDTO booking) {
+    public ResponseEntity<BookingDTO> updateBooking(@PathVariable String id, @Valid @RequestBody BookingDTO booking) {
         UUID bookingId = UUID.fromString(id);
         booking.setId(bookingId);
         BookingDTO updatedBooking = bookingService.updateBooking(booking);

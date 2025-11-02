@@ -35,10 +35,9 @@ public class CampsiteServiceImpl implements CampsiteService {
 
     @Override
     public CampsiteDTO fetchCampsiteById(UUID id) {
-        CampsiteDTO campsite = campsiteRepository.findById(id)
+        return campsiteRepository.findById(id)
                                 .map(campsiteMapper::toDTO)
-                                .orElse(null);
-        return campsite;
+                                .orElseThrow(() -> new RuntimeException("Campsite not found with id: " + id));
     }
 
     @Override
