@@ -7,16 +7,20 @@ import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.FutureOrPresent;
 
-public @Data
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-class BookingDTO {
-    private UUID id;
-    private UUID campsiteId;
-    private UUID userId;
-    private LocalDate startDate;
-    private LocalDate endDate;
-    private BigDecimal total;
-    private String status;
+public class BookingDTO {
+    @NotNull private UUID campsiteId;
+    @NotNull private UUID userId;
+    @NotNull @FutureOrPresent private LocalDate startDate;
+    @NotNull @Future private LocalDate endDate;
+    @NotNull @Positive private BigDecimal total;
+    @NotNull private String status;
 }
