@@ -20,6 +20,13 @@ public interface CampsiteService {
     CampsiteDTO fetchCampsiteById(UUID id);
 
     /**
+     * Fetch campsites for a given State.
+     * @param state The state to retrieve campsites for.
+     * @return A list of campsites for the given state.
+     */
+    List<CampsiteDTO> fetchCampsitesByState(String state);
+
+    /**
      * Creates a new campsite.
      * @param campsite The campsite object to add.
      * @return The added campsite with any generated fields populated.

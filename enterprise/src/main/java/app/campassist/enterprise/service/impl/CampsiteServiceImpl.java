@@ -41,6 +41,15 @@ public class CampsiteServiceImpl implements CampsiteService {
         return campsite;
     }
 
+    @Override 
+    public List<CampsiteDTO> fetchCampsitesByState(String state) {
+        List<CampsiteDTO> campsites = campsiteRepository.findByState(state)
+                                .stream()
+                                .map(campsiteMapper::toDTO)
+                                .toList();
+        return campsites;
+    }
+
     @Override
     public CampsiteDTO createCampsite(CampsiteDTO dto) {
         Campsite campsite = campsiteMapper.toEntity(dto);
