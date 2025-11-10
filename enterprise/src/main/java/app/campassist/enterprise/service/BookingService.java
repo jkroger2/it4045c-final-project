@@ -2,6 +2,7 @@ package app.campassist.enterprise.service;
 
 import app.campassist.enterprise.dto.BookingDTO;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,11 +21,26 @@ public interface BookingService {
     BookingDTO fetchBookingById(UUID id);
 
     /**
+     * Fetch a list of bookings for a specific campsite.
+     * @param campsiteId The identifier of the campsite to retrieve bookings for.
+     * @return A list of bookings for the given campsite.
+     */
+    List<BookingDTO> fetchBookingsByCampsite(UUID campsiteId);
+
+    /**
+     * Fetch a list of bookings that have start or end date within a given time period.
+     * @param startDate The start date of the time period to search.
+     * @param endDate The end date of the time period to search.
+     * @return A list of bookings that have start or end dates within the given time period. 
+     */
+    List<BookingDTO> fetchBookingsByDateRange(LocalDate startDate, LocalDate endDate);
+
+    /**
      * Add a new booking.
      * @param booking The campsite object to add.
      * @return The added booking with any generated fields populated.
      */
-    BookingDTO addBooking(BookingDTO booking);
+    BookingDTO createBooking(BookingDTO booking) throws Exception;
 
     /**
      * Update an existing booking.

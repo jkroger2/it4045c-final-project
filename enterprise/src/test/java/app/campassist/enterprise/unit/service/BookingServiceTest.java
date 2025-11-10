@@ -112,7 +112,7 @@ public class BookingServiceTest {
         when(bookingRepository.save(any(Booking.class))).thenReturn(entity);
         when(bookingMapper.toDTO(any(Booking.class))).thenReturn(dto);
 
-        BookingDTO booking = bookingService.addBooking(dto);
+        BookingDTO booking = bookingService.createBooking(dto);
 
         assert booking == dto;
     }
