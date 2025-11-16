@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "DM Sans", sans-serif;
+            background: #fafafa;
+        }
+
+        .section-header {
+            font-size: 22px;
+            font-weight: 600;
+            padding: 20px 40px 10px;
+        }
+
+        .campsite-grid {
+            display: grid;
+            gap: 28px;
+            padding: 10px 40px 40px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        }
+
+        .campsite-card {
+            background-color: #eeeeea;
+            border-radius: 16px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .campsite-card-link {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .campsite-card-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            background: #eee;
+        }
+
+        .card-details {
+            padding: 0px 0px 20px 20px;
+        }
+
+        .card-title {
+            margin: 10px 0 4px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .campsite-card-subtext {
+            color: #555;
+            font-size: 14px;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>Campassist</header>
+
+<section>
+    <h2 class="section-header">Campsites</h2>
+</section>
+
+
+<div class="campsite-grid">
+    <div class="campsite-card" th:each="campsite : ${campsites}">
+        <a class="campsite-card-link" th:href="@{'/campsites/' + ${campsite.id} + '/details'}">
+            <img class="campsite-card-img"
+                 th:src="${#lists.isEmpty(campsite.images) ? '/img/placeholder.jpg' : campsite.images[0]}"
+                 alt="Campsite Image"/>
+
+            <div class="card-details">
+                <p class="card-title" th:text="${campsite.name}">Campsite Name</p>
+                <p class="campsite-card-subtext"th:text="${'$' + campsite.pricePerNight + ' per night'}"></p>
+            </div>
+        </a>
+
+
+    </div>
+</div>
+
+</body>
+</html>
