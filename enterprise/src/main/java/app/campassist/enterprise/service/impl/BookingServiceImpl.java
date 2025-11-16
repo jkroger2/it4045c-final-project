@@ -5,7 +5,6 @@ import app.campassist.enterprise.mapper.BookingMapper;
 import app.campassist.enterprise.model.Booking;
 import app.campassist.enterprise.repository.BookingRepository;
 import app.campassist.enterprise.service.BookingService;
-import app.campassist.enterprise.utils.BookingUtilities;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -20,12 +19,10 @@ public class BookingServiceImpl implements BookingService{
 
     private final BookingRepository bookingRepository;
     private final BookingMapper bookingMapper;
-    private final BookingUtilities bookingUtilities;
     
-    public BookingServiceImpl(BookingRepository bookingRepository, BookingMapper bookingMapper, BookingUtilities bookingUtilities) {
+    public BookingServiceImpl(BookingRepository bookingRepository, BookingMapper bookingMapper) {
         this.bookingRepository = bookingRepository;
         this.bookingMapper = bookingMapper;
-        this.bookingUtilities = bookingUtilities;
     }
 
     @Override
@@ -56,7 +53,7 @@ public class BookingServiceImpl implements BookingService{
 
     @Override 
     public List<BookingDTO> fetchBookingsByDateRange(LocalDate startDate, LocalDate endDate) {
-        List<BookingDTO> bookings = bookingRepository.findByStartAndEndDate(startDate, endDate)
+        List<BookingDTO> bookings = bookingRepository.findByStartDateAndEndDate(startDate, endDate)
                             .stream()
                             .map(bookingMapper::toDTO)
                             .toList();
