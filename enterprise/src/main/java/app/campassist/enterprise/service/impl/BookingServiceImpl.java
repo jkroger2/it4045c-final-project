@@ -64,28 +64,28 @@ public class BookingServiceImpl implements BookingService{
     }
 
     @Override
-    public BookingDTO createBooking(BookingDTO dto) throws Exception {
+    public BookingDTO createBooking(BookingDTO dto) {
 
 
-        boolean bookingConflict = false;
+        // boolean bookingConflict = false;
 
-        // Check existing bookings for the campsite to ensure the chosen dates do not conflict with an existing booking
-        List<BookingDTO> existingCampsiteBookings = fetchBookingsByCampsite(dto.getCampsiteId());
-        if (!existingCampsiteBookings.isEmpty()) {
-            for (BookingDTO existingBooking : existingCampsiteBookings) {
-                if (
-                    bookingUtilities.isDateInRange(dto.getStartDate(), existingBooking.getStartDate(), existingBooking.getEndDate())
-                    || bookingUtilities.isDateInRange(dto.getEndDate(), existingBooking.getStartDate(), existingBooking.getEndDate())
-                ) {
-                    bookingConflict = true;
-                }
-            }
-        }
+        // // Check existing bookings for the campsite to ensure the chosen dates do not conflict with an existing booking
+        // List<BookingDTO> existingCampsiteBookings = fetchBookingsByCampsite(dto.getCampsiteId());
+        // if (!existingCampsiteBookings.isEmpty()) {
+        //     for (BookingDTO existingBooking : existingCampsiteBookings) {
+        //         if (
+        //             bookingUtilities.isDateInRange(dto.getStartDate(), existingBooking.getStartDate(), existingBooking.getEndDate())
+        //             || bookingUtilities.isDateInRange(dto.getEndDate(), existingBooking.getStartDate(), existingBooking.getEndDate())
+        //         ) {
+        //             bookingConflict = true;
+        //         }
+        //     }
+        // }
 
-        // If bookingConflict exists, throw error
-        if (bookingConflict) {
-            throw new Exception("Booking already exists within date range.");
-        }
+        // // If bookingConflict exists, throw error
+        // if (bookingConflict) {
+        //     throw new Exception("Booking already exists within date range.");
+        // }
 
         Booking booking = bookingMapper.toEntity(dto);
         Booking savedBooking = bookingRepository.save(booking);

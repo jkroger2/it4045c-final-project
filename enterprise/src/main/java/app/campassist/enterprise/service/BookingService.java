@@ -40,7 +40,7 @@ public interface BookingService {
      * @param booking The campsite object to add.
      * @return The added booking with any generated fields populated.
      */
-    BookingDTO createBooking(BookingDTO booking) throws Exception;
+    BookingDTO createBooking(BookingDTO booking);
 
     /**
      * Update an existing booking.
