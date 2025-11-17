@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <style>
+        body {
+            font-family: "DM Sans", sans-serif;
+            margin: 0;
+            background: #f7f7f7;
+        }
+
+        .booking-wrapper {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+        }
+
+        .booking-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .form-field {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-field label {
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .form-field input {
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .primary-btn {
+            display: inline-block;
+            background-color: #2d3bfa;
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            padding: 14px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.15s ease;
+        }
+
+        .primary-btn:hover {
+            background-color: #2330d9;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="booking-wrapper">
+    <div class="booking-title">
+        Book <span th:text="${campsite.name}"></span>
+    </div>
+
+    <form th:action="@{'/api/bookings/}" method="post">
+
+        <div class="form-field">
+            <label>Name</label>
+            <input type="text" name="fullName" required />
+        </div>
+
+        <div class="form-field">
+            <label>Email</label>
+            <input type="email" name="email" required />
+        </div>
+
+        <div class="form-row">
+            <div class="form-field" style="flex: 1;">
+                <label>Start Date</label>
+                <input type="date" name="startDate" required />
+            </div>
+
+            <div class="form-field" style="flex: 1;">
+                <label>End Date</label>
+                <input type="date" name="endDate" required />
+            </div>
+        </div>
+
+        <button class="primary-btn" type="submit">Continue</button>
+    </form>
+</div>
+
+</body>
+</html>

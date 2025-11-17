@@ -1,13 +1,17 @@
 package app.campassist.enterprise.web.controller;
 
+import app.campassist.enterprise.dto.BookingDTO;
 import app.campassist.enterprise.service.CampsiteService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Controller
@@ -21,16 +25,41 @@ public class CampsiteViewController {
     }
 
     @GetMapping
-    public String list(Model model) {
+    public String showCampsitesList(Model model) {
         model.addAttribute("campsites", campsiteService.fetchAllCampsites());
         return "campsites/list";
     }
 
     @GetMapping("/{id}/details")
-    public String detail(@PathVariable String id, Model model) {
+    public String showCampsiteDetails(@PathVariable String id, Model model) {
         UUID campsiteId = UUID.fromString(id);
         model.addAttribute("campsite", campsiteService.fetchCampsiteById(campsiteId));
         return "campsites/details";
     }
 
+    @GetMapping("/{id}/book")
+    public String showBookingForm(@PathVariable String id, Model model) {
+        UUID campsiteId = UUID.fromString(id);
+        model.addAttribute("campsite", campsiteService.fetchCampsiteById(campsiteId));
+        return "campsites/book";
+    }
+
+    @PostMapping("/{id}/book")
+    public String submitBooking(@PathVariable String id,
+                                @RequestParam String email,
+                                @RequestParam String startDate,
+                                @RequestParam String endDate,
+                                Model model) {
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+
+        BookingDTO booking = new BookingDTO();
+        UUID campsiteId = UUID.fromString(id);
+        booking.setCampsiteId(campsiteId);
+        booking.setStartDate(start);
+        booking.setEndDate(end);
+
+        return "campsites/booking-confirmation";
+    }
+                            
 }

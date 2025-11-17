@@ -77,9 +77,9 @@
 
 <div class="campsite-grid">
     <div class="campsite-card" th:each="campsite : ${campsites}">
-        <a class="campsite-card-link" th:href="@{'/campsites/' + ${campsite.id} + '/details'}">
+        <a class="campsite-card-link" th:href="@{|/campsites/${campsite.id}/details|}">
             <img class="campsite-card-img"
-                 th:src="${#lists.isEmpty(campsite.images) ? '/img/placeholder.jpg' : campsite.images[0]}"
+                 th:src="${campsite.images[0]}"
                  alt="Campsite Image"/>
 
             <div class="card-details">

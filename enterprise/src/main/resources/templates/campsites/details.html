@@ -27,7 +27,6 @@
             margin: 0 auto;
         }
 
-        /* Image gallery (simple version: one large image) */
         .hero-image {
             width: 100%;
             height: 420px;
@@ -120,7 +119,7 @@
 <div class="content">
 
     <img class="hero-image"
-         th:src="${#lists.isEmpty(campsite.images) ? '/img/placeholder.jpg' : campsite.images[0]}"
+         th:src="${campsite.images[0]}"
          alt="Campsite image">
 
     <h1 class="title" th:text="${campsite.name}">Campsite Name</h1>
@@ -149,7 +148,7 @@
     </div>
 
     <div class="details-actions">
-        <a class="primary-btn" href="#" role="button">Book this Campsite</a>
+        <a class="primary-btn" th:href="@{|/campsites/${campsite.id}/book|}" role="button">Book this Campsite</a>
     </div>
 </div>
 
