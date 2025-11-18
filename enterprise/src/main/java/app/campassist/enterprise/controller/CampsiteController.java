@@ -12,17 +12,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import app.campassist.enterprise.dto.CampsiteDTO;
-import app.campassist.enterprise.service.ICampsiteService;
+import app.campassist.enterprise.service.CampsiteService;
 
 @Controller
-@RequestMapping("/api/campsites/")
+@RequestMapping("/api/campsites")
 public class CampsiteController {
 
-    private final ICampsiteService campsiteService;
+    private final CampsiteService campsiteService;
 
-    public CampsiteController(ICampsiteService campsiteService) {
+    public CampsiteController(CampsiteService campsiteService) {
         this.campsiteService = campsiteService;
     }
 
@@ -38,25 +39,31 @@ public class CampsiteController {
     /**
      * GET /api/campsites/{id}/
      */
-    @GetMapping("/{id}/")
+    @GetMapping("/{id}")
     public ResponseEntity<CampsiteDTO> getCampsiteById(@PathVariable String id) {
-        CampsiteDTO campsite = campsiteService.fetchCampsiteById(id);
+        CampsiteDTO campsite = campsiteService.fetchCampsiteById(UUID.fromString(id));
         return ResponseEntity.ok(campsite);
     }
     
+    @GetMapping("/search")
+    public ResponseEntity<List<CampsiteDTO>> getCampsitesByState(@RequestParam("state") String state) {
+        List<CampsiteDTO> campsites = campsiteService.fetchCampsitesByState(state);
+        return ResponseEntity.ok(campsites);
+    }
+
     /**
      * POST /api/campsites/
      */
     @PostMapping(value="/", consumes="application/json", produces="application/json")
-    public ResponseEntity<CampsiteDTO> addCampsite(@RequestBody CampsiteDTO campsite) {
-        CampsiteDTO newCampsite = campsiteService.addCampsite(campsite);
+    public ResponseEntity<CampsiteDTO> createCampsite(@RequestBody CampsiteDTO campsite) {
+        CampsiteDTO newCampsite = campsiteService.createCampsite(campsite);
         return ResponseEntity.ok(newCampsite);
     }
 
     /**
      * PUT /api/campsites/{id}/
      */
-    @PutMapping(value="/{id}/", consumes="application/json", produces="application/json")
+    @PutMapping(value="/{id}", consumes="application/json", produces="application/json")
     public ResponseEntity<CampsiteDTO> updateCampsite(@PathVariable String id, @RequestBody CampsiteDTO campsite) {
         UUID campsiteId = UUID.fromString(id);
         campsite.setId(campsiteId);
@@ -67,10 +74,9 @@ public class CampsiteController {
     /**
      * DELETE /api/campsites/{id}/
      */
-    @DeleteMapping("/{id}/")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCampsite(@PathVariable String id) {
-        campsiteService.deleteCampsite(id);
+        campsiteService.deleteCampsite(UUID.fromString(id));
         return ResponseEntity.ok().build();
     }
-    
 }
