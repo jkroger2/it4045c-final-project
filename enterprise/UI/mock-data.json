@@ -1,0 +1,41 @@
+[
+  {
+    "id": "s1",
+    "name": "Riverside Back-In 30A",
+    "type": "Back-in",
+    "maxLength": 35,
+    "power": ["30A"],
+    "hookups": ["Water", "Sewer"],
+    "pricePerNight": 48,
+    "cancelFreeHours": 72,
+    "policySummary": "Free cancel ≥72h before check-in; otherwise first night penalty.",
+    "description": "Shaded site near the river. Compact rigs recommended.",
+    "blockedDates": [["2025-10-08","2025-10-10"]]
+  },
+  {
+    "id": "s2",
+    "name": "Pull-Through 50A Premium",
+    "type": "Pull-through",
+    "maxLength": 45,
+    "power": ["30A", "50A"],
+    "hookups": ["Water", "Sewer", "Cable"],
+    "pricePerNight": 68,
+    "cancelFreeHours": 72,
+    "policySummary": "Free cancel ≥72h; 1st night penalty inside window.",
+    "description": "Easy access pull-through with full hookups.",
+    "blockedDates": [["2025-10-12","2025-10-15"]]
+  },
+  {
+    "id": "s3",
+    "name": "Economy Back-In (No Sewer)",
+    "type": "Back-in",
+    "maxLength": 30,
+    "power": ["30A"],
+    "hookups": ["Water"],
+    "pricePerNight": 39,
+    "cancelFreeHours": 72,
+    "policySummary": "72h free-cancel, then first night kept.",
+    "description": "Budget site with water and power only.",
+    "blockedDates": []
+  }
+]
