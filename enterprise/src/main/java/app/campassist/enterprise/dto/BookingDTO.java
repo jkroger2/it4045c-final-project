@@ -14,7 +14,8 @@ public @Data
 class BookingDTO {
     private UUID id;
     private UUID campsiteId;
-    private UUID userId;
+    private String campsiteName;
+    private String email;
     private LocalDate startDate;
     private LocalDate endDate;
     private BigDecimal total;

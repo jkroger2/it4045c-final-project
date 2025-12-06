@@ -1,6 +1,6 @@
 ---
 services:
-  db:
+  mysql-db:
     image: mysql:8.0
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}

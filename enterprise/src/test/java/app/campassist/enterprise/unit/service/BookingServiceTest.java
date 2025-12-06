@@ -42,7 +42,8 @@ public class BookingServiceTest {
             new Booking(
                 UUID.randomUUID(),
                 UUID.randomUUID(),
-                UUID.randomUUID(),
+                "Test Campsite",
+                "jdoe@gmail.com",
                 null,
                 null,
                 BigDecimal.valueOf(2.00),
@@ -51,7 +52,8 @@ public class BookingServiceTest {
             new Booking(
                 UUID.randomUUID(),
                 UUID.randomUUID(),
-                UUID.randomUUID(),
+                "Another Campsite",
+                "jdoe@gmail.com",
                 null,
                 null,
                 BigDecimal.valueOf(4.00),
@@ -93,7 +95,7 @@ public class BookingServiceTest {
         
         BookingDTO dto = new BookingDTO();
         dto.setCampsiteId(UUID.randomUUID());
-        dto.setUserId(UUID.randomUUID());
+        dto.setEmail("jdoe@gmail.com");
         dto.setStartDate(null);
         dto.setEndDate(null);
         dto.setTotal(BigDecimal.valueOf(10.00));
@@ -102,7 +104,7 @@ public class BookingServiceTest {
         Booking entity = new Booking();
         entity.setId(UUID.randomUUID());
         entity.setCampsiteId(dto.getCampsiteId());
-        entity.setUserId(dto.getUserId());
+        entity.setEmail(dto.getEmail());
         entity.setStartDate(dto.getStartDate());
         entity.setEndDate(dto.getEndDate());
         entity.setTotal(dto.getTotal());
@@ -112,7 +114,7 @@ public class BookingServiceTest {
         when(bookingRepository.save(any(Booking.class))).thenReturn(entity);
         when(bookingMapper.toDTO(any(Booking.class))).thenReturn(dto);
 
-        BookingDTO booking = bookingService.addBooking(dto);
+        BookingDTO booking = bookingService.createBooking(dto);
 
         assert booking == dto;
     }

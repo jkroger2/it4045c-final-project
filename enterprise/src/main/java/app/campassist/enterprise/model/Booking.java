@@ -25,7 +25,10 @@ public class Booking {
     private UUID campsiteId;
 
     @Column(nullable = false)
-    private UUID userId;
+    private String campsiteName;
+    
+    @Column(nullable = false)
+    private String email;
 
     @Column(nullable = false)
     private LocalDate startDate;

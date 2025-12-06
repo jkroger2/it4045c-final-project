@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: "DM Sans", sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            padding: 20px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .section-header {
+            font-size: 22px;
+            font-weight: 600;
+            padding: 10px 20px;
+        }
+
+        .bookings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .booking-card {
+            background: #ffffff;
+            border: 1px solid #e8e8e8;
+            border-radius: 16px;
+            padding: 16px;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .booking-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .booking-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #111;
+        }
+
+        .booking-subtext {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .booking-link {
+            text-decoration: none;
+            color: #2d3bfa;
+            font-weight: 500;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    Campassist
+</header>
+
+<h2 class="section-header">My Bookings</h2>
+
+<div class="bookings-grid">
+    <div class="booking-card" th:each="booking : ${bookings}">
+        <p class="booking-title" th:text="${booking.campsiteName}">Campsite Name</p>
+
+        <p class="booking-subtext">
+            Check-in:
+            <span th:text="${booking.startDate}"></span>
+            <br>
+            Check-out:
+            <span th:text="${booking.endDate}"></span>
+        </p>
+
+        <a class="booking-link"
+           th:href="@{'/bookings/' + ${booking.id} + '/details'}">
+            View details →
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

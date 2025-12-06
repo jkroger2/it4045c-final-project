@@ -50,7 +50,7 @@ public class BookingController {
      */
     @PostMapping(value="/", consumes="application/json", produces="application/json")
     public ResponseEntity<BookingDTO> addBooking(@RequestBody BookingDTO booking) {
-        BookingDTO newBooking = bookingService.addBooking(booking);
+        BookingDTO newBooking = bookingService.createBooking(booking);
         return ResponseEntity.ok(newBooking);
     }
 

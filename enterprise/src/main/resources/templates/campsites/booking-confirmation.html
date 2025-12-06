@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: "DM Sans", sans-serif;
+            background: #fafafa;
+        }
+
+        header {
+            padding: 20px 40px;
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .confirmation-box {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        }
+
+        .success-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .success-text {
+            color: #444;
+            font-size: 16px;
+            margin-bottom: 24px;
+        }
+
+        .campsite-widget {
+            display: flex;
+            background: #eeeeea;
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .campsite-widget img {
+            width: 220px;
+            height: 180px;
+            object-fit: cover;
+        }
+
+        .campsite-info {
+            padding: 20px;
+        }
+
+        .campsite-info h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .campsite-info p {
+            margin: 4px 0;
+            color: #555;
+        }
+
+        .details-line {
+            margin: 6px 0;
+        }
+
+        .return-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            background: #2d3bfa;
+            color: #fff;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>Campassist</header>
+
+<div class="container">
+    <div class="confirmation-box">
+
+        <div class="success-title">Booking Confirmed!</div>
+        <div class="success-text">
+            Your campsite reservation is complete. A confirmation email has been sent.
+        </div>
+
+        <!-- CAMP SITE WIDGET -->
+        <div class="campsite-widget">
+            <img th:src="${campsite.images[0]}" alt="Campsite Image"/>
+
+            <div class="campsite-info">
+                <h3 th:text="${campsite.name}">Campsite Name</h3>
+                <p th:text="${campsite.city}">City</p>
+                <p th:text="${'$' + campsite.pricePerNight + ' per night'}"></p>
+            </div>
+        </div>
+
+        <!-- BOOKING DETAILS -->
+        <p class="details-line">Booking ID: <strong th:text="${booking.id}"></strong></p>
+        <p class="details-line">Email: <strong th:text="${booking.email}"></strong></p>
+        <p class="details-line">
+            Dates:
+            <strong th:text="${booking.startDate}"></strong>
+            to
+            <strong th:text="${booking.endDate}"></strong>
+        </p>
+
+        <a class="return-link" th:href="@{'/bookings/' + ${booking.email}}">View My Bookings</a>
+    </div>
+</div>
+
+</body>
+</html>
