@@ -75,12 +75,7 @@
         Book <span th:text="${campsite.name}"></span>
     </div>
 
-    <form th:action="@{'/api/bookings/}" method="post">
-
-        <div class="form-field">
-            <label>Name</label>
-            <input type="text" name="fullName" required />
-        </div>
+    <form th:action="@{|/campsites/${campsite.id}/book|}" method="post">
 
         <div class="form-field">
             <label>Email</label>

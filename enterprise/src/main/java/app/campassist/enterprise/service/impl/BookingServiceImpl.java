@@ -43,6 +43,15 @@ public class BookingServiceImpl implements BookingService{
     }
 
     @Override
+    public List<BookingDTO> fetchBookingsByEmail(String email) {
+        List<BookingDTO> bookings = bookingRepository.findByEmail(email)
+                            .stream()
+                            .map(bookingMapper::toDTO)
+                            .toList();
+        return bookings;
+    }
+
+    @Override
     public List<BookingDTO> fetchBookingsByCampsite(UUID campsiteId) {
         List<BookingDTO> bookings = bookingRepository.findByCampsiteId(campsiteId)
                             .stream()

@@ -21,6 +21,12 @@ public interface BookingService {
     BookingDTO fetchBookingById(UUID id);
 
     /**
+     * Fetch a list of bookings for a specific user by their email.
+     * @param email The email of the user to retrieve bookings for.
+     * @return A list of bookings for the given user.
+     */
+    List<BookingDTO> fetchBookingsByEmail(String email);
+    /**
      * Fetch a list of bookings for a specific campsite.
      * @param campsiteId The identifier of the campsite to retrieve bookings for.
      * @return A list of bookings for the given campsite.

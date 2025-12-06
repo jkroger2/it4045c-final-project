@@ -13,4 +13,5 @@ import java.util.UUID;
 public interface BookingRepository extends JpaRepository<Booking, UUID> {
     List<Booking> findByCampsiteId(UUID campsiteId);
     List<Booking> findByStartDateAndEndDate(LocalDate startDate, LocalDate endDate);
+    List<Booking> findByEmail(String email);
 }

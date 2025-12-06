@@ -13,6 +13,28 @@
             background: #fafafa;
         }
 
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            font-size: 24px;
+            font-weight: 700;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .header-link {
+            font-size: 16px;
+            font-weight: 500;
+            text-decoration: none;
+            color: #2d3bfa;
+        }
+
+        .header-link:hover {
+            text-decoration: underline;
+        }
+
         .section-header {
             font-size: 22px;
             font-weight: 600;
@@ -68,7 +90,13 @@
 
 <body>
 
-<header>Campassist</header>
+<header>
+    Campassist
+
+    <a class="header-link" th:href="@{|/bookings/jdoe@gmail.com|}">My Bookings</a>
+</header>
+
+
 
 <section>
     <h2 class="section-header">Campsites</h2>
